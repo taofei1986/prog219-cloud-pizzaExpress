@@ -55,7 +55,7 @@ router.post('/deleteuser', function(req, res) {
   var db = req.db;
   var collection = db.get('bcPizzariaUser');
   collection.find({
-    username:req.body.username,
+    _id:req.body.userID,
     password:req.body.password
   },(err, docs)=>{
     if(docs.length==0){
@@ -65,7 +65,7 @@ router.post('/deleteuser', function(req, res) {
     }
     else{
       collection.remove({ '_id' : req.body.userID },(err)=>{
-        res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
+        res.send((err === null) ? { msg: 'The account deleted!', deletSuccess:true} : { msg:'error: ' + err });
       })
     }
   });
@@ -77,7 +77,7 @@ router.post('/updatepassword', function(req, res) {
   var db = req.db;
   var collection = db.get('bcPizzariaUser');
   collection.find({
-    username:req.body.username,
+    _id:req.body.userID,
     password:req.body.password
   },(err, docs)=>{
     if(docs.length==0){
@@ -87,6 +87,15 @@ router.post('/updatepassword', function(req, res) {
     }
     else{
       //here is update password
+      collection.update(
+        { "_id":  req.body.userID},
+        {
+          $set: { "password" : req.body.newpassword}
+        }
+      );
+      res.send(
+        (err === null) ? { msg: 'password updated!',updateSuccess:true} : { msg: err }
+      );
     }
   });
 });
@@ -96,7 +105,7 @@ router.post('/updateaddress', function(req, res) {
   var db = req.db;
   var collection = db.get('bcPizzariaUser');
   collection.find({
-    username:req.body.username,
+    _id:req.body.userID,
     password:req.body.password
   },(err, docs)=>{
     if(docs.length==0){
@@ -106,6 +115,15 @@ router.post('/updateaddress', function(req, res) {
     }
     else{
       //here is update address
+      collection.update(
+        { "_id":  req.body.userID},
+        {
+          $set: { "address" : req.body.newaddress}
+        }
+      );
+      res.send(
+        (err === null) ? { msg: 'address updated!',updateSuccess:true} : { msg: err }
+      );
     }
   });
 });

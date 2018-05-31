@@ -31,6 +31,20 @@ window.onload = function () {
     $(document).on('click', '#changepasswordbt', function(event){
         changePassword();
     });
+    $(document).on('click', '#m_addressbt', function(event){
+        //move to addresschange page;
+        document.location.href = "#addresschange";
+    });
+    $(document).on('click', '#changeAdressbt', function(event){
+        changeAdress();
+    });
+    $(document).on('click', '#m_deletbt', function(event){
+        //move to deletaccount page;
+        document.location.href = "#deletaccount";
+    });
+    $(document).on('click', '#deletAccountbt', function(event){
+        deletAccount();
+    });
 
     $(document).on('click', '#createButton', function(event){
         createUser();
@@ -39,6 +53,7 @@ window.onload = function () {
 
     $(document).on("pagebeforeshow", "#order",function(event){
         if(user.userName===""){
+            alert("Please login!");
             document.location.href = "#log";
         }
         else{
@@ -167,6 +182,9 @@ function changePassword()
     let newpassword=$("#newpassword").val();
     let matchpassword=$("#matchpassword").val();
     if(newpassword!=matchpassword){
+        $("#oldpassword").val("");
+        $("#newpassword").val("");
+        $("#matchpassword").val("");
         alert("please check your new password, they don't match each other.");
         return;
     }
@@ -184,15 +202,86 @@ function changePassword()
             })
         })
         .then(res => res.json())
-        .then((response) => {
-            console.log(response);
+        .then((res) => {
+            console.log(res);
+            if(res.updateSuccess){
+                alert("Password changed successfully!");
+                document.location.href = "#manageaccount";
+            }
+            else{
+                alert("Password incorrect!");
+            }
         })
         .catch(error => console.error('Error:', error));
+        $("#oldpassword").val("");
+        $("#newpassword").val("");
+        $("#matchpassword").val("");
     }
 }
-function changeUser()
+function changeAdress()
 {
-    //this function allows the user to change their information
+    //this function allows the user to change their address
+    let passwordAddress=$("#passwordAddress").val();
+    let newaddress=$("#newaddress").val();
+    let userInfo={
+        userID:user.userID,
+        password:passwordAddress,
+        newaddress:newaddress
+    };
+    console.log("before fetch");
+    fetch('/users/updateaddress', {
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify(userInfo), // data can be `string` or {object}!
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        })
+    })
+    .then(res => res.json())
+    .then((res) => {
+        console.log(res);
+        if(res.updateSuccess){
+            $("#passwordAddress").val("");
+            $("#newaddress").val("");
+            alert("Address changed successfully!");
+            document.location.href = "#manageaccount";
+        }
+        else{
+            $("#passwordAddress").val("");
+            $("#newaddress").val("");
+            alert("Password incorrect!");
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+function deletAccount()
+{
+    //this function allows the user to delet their account
+    let passworddelet=$("#passworddelet").val();
+    let userInfo={
+        userID:user.userID,
+        password:passworddelet,
+    };
+    fetch('/users/deleteuser', {
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify(userInfo), // data can be `string` or {object}!
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        })
+    })
+    .then(res => res.json())
+    .then((res) => {
+        console.log(res);
+        if(res.deletSuccess){
+            $("#passworddelet").val("");
+            alert("The account deleted successfully")
+            document.location.href = "#log";
+        }
+        else{
+            $("#passworddelet").val("");
+            alert("Password incorrect!");
+        }
+    })
+    .catch(error => console.error('Error:', error));
 }
 
 function orderPizza()
