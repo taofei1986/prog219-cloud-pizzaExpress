@@ -60,13 +60,52 @@ router.post('/deleteuser', function(req, res) {
   },(err, docs)=>{
     if(docs.length==0){
       res.send(
-        (err === null) ? { msg: 'username incorrect or password incrorrect!',loginSuccess:false} : { msg: err }
+        (err === null) ? { msg: 'password incrorrect!',deletSuccess:false} : { msg: err }
       );
     }
     else{
       collection.remove({ '_id' : req.body.userID },(err)=>{
         res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
       })
+    }
+  });
+});
+
+
+/* POST to change password. */
+router.post('/updatepassword', function(req, res) {
+  var db = req.db;
+  var collection = db.get('bcPizzariaUser');
+  collection.find({
+    username:req.body.username,
+    password:req.body.password
+  },(err, docs)=>{
+    if(docs.length==0){
+      res.send(
+        (err === null) ? { msg: 'password incrorrect!',deletSuccess:false} : { msg: err }
+      );
+    }
+    else{
+      //here is update password
+    }
+  });
+});
+
+/* POST to change address. */
+router.post('/updateaddress', function(req, res) {
+  var db = req.db;
+  var collection = db.get('bcPizzariaUser');
+  collection.find({
+    username:req.body.username,
+    password:req.body.password
+  },(err, docs)=>{
+    if(docs.length==0){
+      res.send(
+        (err === null) ? { msg: 'password incrorrect!',deletSuccess:false} : { msg: err }
+      );
+    }
+    else{
+      //here is update address
     }
   });
 });

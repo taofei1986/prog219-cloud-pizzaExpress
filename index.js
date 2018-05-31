@@ -51,6 +51,7 @@ window.onload = function () {
 function deleteUser()
 {
     //this delets the user from the mongo database
+    let deletpassword=$("deletPassword").val();
 }
 function loginUser()
 {

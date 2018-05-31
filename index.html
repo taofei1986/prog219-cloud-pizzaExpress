@@ -65,33 +65,83 @@
 			<input type="submit" value="Hawaiian Pizza" id="hawaiian"/>
 			<input type="submit" value="BBQ Chicken Pizza" id="bbqchicken"/>
 			<!--make it so that once a pizza is selected, the user goes to the pizza congrats page-->
-			<a href="#change" data-role="button" data-transition='pop'>Manage Account</a>
+			<a href="#manageaccount" data-role="button" data-transition='pop'>Manage Account</a>
 		</div>
 
 		<div data-role="footer">
 			<p>Copyright &copy; BC Pizzaria 2018</p>
 		</div>
 </div>
-<!--page to change/delete account-->
-<div data-role="page" id="change">
+<!--page to manage account-->
+<div data-role="page" id="manageaccount">
+	<div data-role="header">
+			<h1>Bellevue College Pizzaria</h1>
+	</div>
+
+	<div data-role="content"> 
+		<!--must show information that is in this persons account in the text field-->
+			<input type="submit" value="Change Password" id="m_passwordbt"/>
+			<input type="submit" value="Change address" id="m_addressbt"/>
+			<input type="submit" value="Delet Account" id="m_deletbt"/>
+	</div>
+
+	<div data-role="footer">
+		<p>Copyright &copy; BC Pizzaria 2018</p>
+	</div>
+</div>
+<!--page to change password-->
+<div data-role="page" id="passwordchange">
 		<div data-role="header">
 				<h1>Bellevue College Pizzaria</h1>
 		</div>
 
 		<div data-role="content"> 
-			<h3>Change any field in the account below</h3>
+			<h3>Change your password</h3>
 			<!--must show information that is in this persons account in the text field-->
-				<input type="text" id="firstName" value="" placeholder="Enter first name"/>
-				<input type="text" id="lastName" value="" placeholder="Enter last name"/>
-				<input type="text" id="address" value="" placeholder="Enter address"/>
-				<input type="submit" value="Change Account" id="changeAccount"/>
-			<h3>Or you can delete your account</h3>    
-			<input type="submit" value="Delete Account" id="delete"/>
+				<input type="text" id="oldpassword" value="" placeholder="Enter your old password"/>
+				<input type="text" id="newpassword" value="" placeholder="Enter your new password"/>
+				<input type="text" id="matchpassword" value="" placeholder="Enter your new password again"/>
+				<input type="submit" value="Change Password" id="changepasswordbt"/>
 		</div>
 
 		<div data-role="footer">
 			<p>Copyright &copy; BC Pizzaria 2018</p>
 		</div>
+</div>
+<!--page to change address-->
+<div data-role="page" id="addresschange">
+	<div data-role="header">
+			<h1>Bellevue College Pizzaria</h1>
+	</div>
+
+	<div data-role="content"> 
+		<h3>Change your address</h3>
+		<!--must show information that is in this persons account in the text field-->
+			<input type="text" id="passwordAddress" value="" placeholder="Enter your password"/>
+			<input type="text" id="newaddress" value="" placeholder="Enter your new address"/>
+			<input type="submit" value="Change Address" id="changeAdressbt"/>
+	</div>
+
+	<div data-role="footer">
+		<p>Copyright &copy; BC Pizzaria 2018</p>
+	</div>
+</div>
+<!--page to delet account-->
+<div data-role="page" id="deletaccount">
+	<div data-role="header">
+			<h1>Bellevue College Pizzaria</h1>
+	</div>
+
+	<div data-role="content"> 
+		<h3>Delet your account</h3>
+		<!--must show information that is in this persons account in the text field-->
+			<input type="text" id="passworddelet" value="" placeholder="Enter your password"/>
+			<input type="submit" value="Delet Account" id="deletAccountbt"/>
+	</div>
+
+	<div data-role="footer">
+		<p>Copyright &copy; BC Pizzaria 2018</p>
+	</div>
 </div>
 <!--order was sucessful-->
 <div data-role="page" id="success">
