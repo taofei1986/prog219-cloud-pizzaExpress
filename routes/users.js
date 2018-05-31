@@ -7,20 +7,20 @@ var router = express.Router();
 router.post('/adduser', function(req, res) {
   var db = req.db;
   var collection = db.get('bcPizzariaUser');
-  collection.find({
+  collection.find({//try find record by username
     username:req.body.username
   },(err, docs)=>{
     if(err){
         res.send({msg:'server or db error'});
     }else{
-      if(docs.length==0){
+      if(docs.length==0){//record not exist
         collection.insert(req.body, function(err, userInfo){
           res.send(
             (err === null) ? {userInfo} : { msg: err }
           );
         })
       }
-      else{
+      else{//record exist
         res.send({msg:'already have this accout',accoutExsit:true});
       }
     }
@@ -31,19 +31,19 @@ router.post('/adduser', function(req, res) {
 router.post('/login', function(req, res) {
   var db = req.db;
   var collection = db.get('bcPizzariaUser');
-  collection.find({
+  collection.find({//try find record by username and password
     username:req.body.username,
     password:req.body.password
   },(err, docs)=>{
     if(err){
         res.send({msg:'server or db error'});
     }else{
-      if(docs.length==0){
+      if(docs.length==0){//record not exist
         res.send(
           (err === null) ? { msg: 'username incorrect or password incrorrect!',loginSuccess:false} : { msg: err }
         );
       }
-      else{
+      else{//record exist
         res.send({msg:'login success',loginSuccess:true,userInfo:docs[0]});
       }
     }
@@ -54,16 +54,16 @@ router.post('/login', function(req, res) {
 router.post('/deleteuser', function(req, res) {
   var db = req.db;
   var collection = db.get('bcPizzariaUser');
-  collection.find({
+  collection.find({//try find record by _id and password
     _id:req.body.userID,
     password:req.body.password
   },(err, docs)=>{
-    if(docs.length==0){
+    if(docs.length==0){//record not exist
       res.send(
         (err === null) ? { msg: 'password incrorrect!',deletSuccess:false} : { msg: err }
       );
     }
-    else{
+    else{//record exist
       collection.remove({ '_id' : req.body.userID },(err)=>{
         res.send((err === null) ? { msg: 'The account deleted!', deletSuccess:true} : { msg:'error: ' + err });
       })
@@ -76,16 +76,16 @@ router.post('/deleteuser', function(req, res) {
 router.post('/updatepassword', function(req, res) {
   var db = req.db;
   var collection = db.get('bcPizzariaUser');
-  collection.find({
+  collection.find({//try find record by _id and password
     _id:req.body.userID,
     password:req.body.password
   },(err, docs)=>{
-    if(docs.length==0){
+    if(docs.length==0){//record not exist
       res.send(
         (err === null) ? { msg: 'password incrorrect!',updateSuccess:false} : { msg: err }
       );
     }
-    else{
+    else{//record exist
       //here is update password
       collection.update(
         { "_id":  req.body.userID},
@@ -104,16 +104,16 @@ router.post('/updatepassword', function(req, res) {
 router.post('/updateaddress', function(req, res) {
   var db = req.db;
   var collection = db.get('bcPizzariaUser');
-  collection.find({
+  collection.find({//try find record by _id and passowrd 
     _id:req.body.userID,
     password:req.body.password
   },(err, docs)=>{
-    if(docs.length==0){
+    if(docs.length==0){//record not exist
       res.send(
         (err === null) ? { msg: 'password incrorrect!',updateSuccess:false} : { msg: err }
       );
     }
-    else{
+    else{//record exist
       //here is update address
       collection.update(
         { "_id":  req.body.userID},

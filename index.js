@@ -1,4 +1,4 @@
-let user={
+let user={//user state, can change to save in session
     userName:"",
     userID:"",
     userAddress:""
@@ -52,20 +52,40 @@ window.onload = function () {
     });   
 
     $(document).on("pagebeforeshow", "#order",function(event){
-        if(user.userName===""){
+        if(user.userName===""){//if not login, go login page
             alert("Please login!");
             document.location.href = "#log";
         }
-        else{
+        else{//if login, show welcome message
             $("#welcomeOrder").text("Welcome, "+user.userName+"! What do you want to eat today.");
         }
     });
+    $(document).on("pagebeforeshow", "#manageaccount",function(event){
+        if(user.userName===""){//if not login, go login page
+            alert("Please login!");
+            document.location.href = "#log";
+        }
+    });
+    $(document).on("pagebeforeshow", "#passwordchange",function(event){
+        if(user.userName===""){//if not login, go login page
+            alert("Please login!");
+            document.location.href = "#log";
+        }
+    });
+    $(document).on("pagebeforeshow", "#addresschange",function(event){
+        if(user.userName===""){//if not login, go login page
+            alert("Please login!");
+            document.location.href = "#log";
+        }
+    });
+    $(document).on("pagebeforeshow", "#deletaccount",function(event){
+        if(user.userName===""){//if not login, go login page
+            alert("Please login!");
+            document.location.href = "#log";
+        }
+    });
 }
-function deleteUser()
-{
-    //this delets the user from the mongo database
-    let deletpassword=$("deletPassword").val();
-}
+
 function loginUser()
 {
     //this delets the user from the mongo database
