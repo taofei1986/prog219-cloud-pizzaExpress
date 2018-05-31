@@ -24,20 +24,18 @@ window.onload = function () {
         document.location.href = "#success";
     });
 
-    $(document).on('click', '#delete', function(event){
-        //deleteUser();
-        document.location.href = "#log";
-    });    
+    $(document).on('click', '#m_passwordbt', function(event){
+        //move to passwordchange page;
+        document.location.href = "#passwordchange";
+    });
+    $(document).on('click', '#changepasswordbt', function(event){
+        changePassword();
+    });
 
     $(document).on('click', '#createButton', function(event){
         createUser();
 
     });   
-
-    $(document).on('click', '#changeAccount', function(event){
-        //changeUser
-        document.location.href = "#log";
-    });
 
     $(document).on("pagebeforeshow", "#order",function(event){
         if(user.userName===""){
@@ -162,7 +160,36 @@ function createUser()
     })
     .catch(error => console.error('Error:', error));
 }
-
+function changePassword()
+{
+    //this function allows the user to change their password
+    let oldpassword=$("#oldpassword").val();
+    let newpassword=$("#newpassword").val();
+    let matchpassword=$("#matchpassword").val();
+    if(newpassword!=matchpassword){
+        alert("please check your new password, they don't match each other.");
+        return;
+    }
+    else{
+        let userInfo={
+            userID:user.userID,
+            password:oldpassword,
+            newpassword:newpassword
+        };
+        fetch('/users/updatepassword', {
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(userInfo), // data can be `string` or {object}!
+            headers: new Headers({
+              'Content-Type': 'application/json'
+            })
+        })
+        .then(res => res.json())
+        .then((response) => {
+            console.log(response);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+}
 function changeUser()
 {
     //this function allows the user to change their information

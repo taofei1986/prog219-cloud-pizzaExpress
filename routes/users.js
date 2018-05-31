@@ -82,7 +82,7 @@ router.post('/updatepassword', function(req, res) {
   },(err, docs)=>{
     if(docs.length==0){
       res.send(
-        (err === null) ? { msg: 'password incrorrect!',deletSuccess:false} : { msg: err }
+        (err === null) ? { msg: 'password incrorrect!',updateSuccess:false} : { msg: err }
       );
     }
     else{
@@ -101,7 +101,7 @@ router.post('/updateaddress', function(req, res) {
   },(err, docs)=>{
     if(docs.length==0){
       res.send(
-        (err === null) ? { msg: 'password incrorrect!',deletSuccess:false} : { msg: err }
+        (err === null) ? { msg: 'password incrorrect!',updateSuccess:false} : { msg: err }
       );
     }
     else{
