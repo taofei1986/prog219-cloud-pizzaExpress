@@ -64,15 +64,9 @@
 
 		<div data-role="content"> 
 			<h3 id="welcomeOrder" style="text-align: center"></h2>
-			<li>
-				<button type="submit" class="bt" id="cheese">Cheese Pizza</button>
-			</li>
-			<li>
-				<button type="submit" class="bt" id="hawaiian">Hawaiian Pizza</button>
-			</li>
-			<li>
-				<button type="submit" class="bt" id="bbqchicken">BBQ Chicken Pizza</button>
-			</li>
+			<button class="bt" id="cheese">Cheese Pizza $19.99</button>
+			<button class="bt" id="hawaiian">Hawaiian Pizza $20.99</button>
+			<button class="bt" id="bbqchicken">BBQ Chicken Pizza $21.99</button>
 			<!--make it so that once a pizza is selected, the user goes to the pizza congrats page-->
 		</div>
 
@@ -90,6 +84,7 @@
 
 	<div data-role="content"> 
 		<!--must show information that is in this persons account in the text field-->
+			<button class="bt checkOrder_bt">Check your Order History</button>
 			<button id="m_passwordbt" class="bt">Change Password</button>
 			<button id="m_addressbt" class="bt">Change address</button>
 			<button id="m_deletbt" class="bt">Delet Account</button>
@@ -151,14 +146,29 @@
 	<div data-role="content"> 
 		<h3>Delet your account</h3>
 		<!--must show information that is in this persons account in the text field-->
-			<input type="password" id="passworddelet" value="" placeholder="Enter your password"/>
-			<button id="deletAccountbt" class="bt">Delet Account</button>
+		<input type="password" id="passworddelet" value="" placeholder="Enter your password"/>
+		<button id="deletAccountbt" class="bt">Delet Account</button>
 	</div>
 
 	<div data-role="footer">
 		<h3>Copyright &copy; BC Pizzaria 2018</h3>
 	</div>
 </div>
+<!--Check order-->
+<div data-role="page" id="checkorder">
+		<div data-role="header">
+			<a href="#order" data-icon="home" data-iconpos="notext"></a>
+			<h1>BC Pizza Express</h1>
+			<a data-icon="power" class="signOutIcon" data-iconpos="notext"></a>
+		</div>
+	
+		<div data-role="content" id="checkOrderDetail"> 
+		</div>
+	
+		<div data-role="footer">
+			<h3>Copyright &copy; BC Pizzaria 2018</h3>
+		</div>
+	</div>
 <!--order was sucessful-->
 <div data-role="page" id="success">
 	<div data-role="header">
@@ -168,7 +178,8 @@
 	</div>
 
 	<div data-role="content"> 
-		<h3>Congrats!  Your pizza is on the way, thank you for ordering from BC Pizza Express</h3>
+		<h3>Congrats!  Your pizza is on the way, thank you for ordering from BC Pizzaria</h3>
+		<button class="bt checkOrder_bt">Check your Order</button>
 	</div>
 
 	<div data-role="footer">

@@ -15,8 +15,13 @@ router.post('/adduser', function(req, res) {
     }else{
       if(docs.length==0){//record not exist
         collection.insert(req.body, function(err, userInfo){
+          let newUserInfo={
+            address:userInfo.address,
+            _id:userInfo._id,
+            username:userInfo.username
+          }
           res.send(
-            (err === null) ? {userInfo} : { msg: err }
+            (err === null) ? {newUserInfo} : { msg: err }
           );
         })
       }
@@ -126,6 +131,46 @@ router.post('/updateaddress', function(req, res) {
       );
     }
   });
+});
+
+/* POST to order pizza. */
+router.post('/orderpizza', function(req, res) {
+  var db = req.db;
+  var collection = db.get('bcPizzariaOrder');//pizza order collection
+  let price=0;
+  if(req.body.pizzaTopping=="cheese"){
+    price=19.99;
+  }
+  else if(req.body.pizzaTopping=="hawaiian"){
+    price=20.99;
+  }
+  else if(req.body.pizzaTopping=="bbqchicken"){
+    price=21.99;
+  }
+  let orderDetail={
+    customerID:req.body.customerID,
+    pizzaTopping:req.body.pizzaTopping,
+    orderTime:req.body.orderTime,
+    Price:price
+  }
+  collection.insert(orderDetail, function(err, orderInfor){
+    res.send(
+      (err === null) ? {orderID:orderInfor._id,orderSuccess:true} : { msg: err,orderSuccess:false }
+    );
+  })
+});
+
+/* Get order history. */
+router.post('/orderhistory', function(req, res) {
+  var db = req.db;
+  var collection = db.get('bcPizzariaOrder');//pizza order collection
+  collection.find({//try find record by customerID
+    customerID:req.body.userID
+  },(err, docs)=>{
+    res.send(
+      (err === null) ? {orderHistory:docs,findSuccess:true} : { msg: err,findSuccess:false }
+    );
+  })
 });
 
 module.exports = router;

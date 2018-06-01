@@ -30,18 +30,18 @@ window.onload = function () {
         document.location.href = "#manageaccount";
     });
     $(document).on('click', '#cheese', function(event){
-        //orderPizza();
-        document.location.href = "#success";
+        orderPizza("cheese");
     });
 
     $(document).on('click', '#hawaiian', function(event){
-        //orderPizza();
-        document.location.href = "#success";
+        orderPizza("hawaiian");
     });    
 
     $(document).on('click', '#bbqchicken', function(event){
-        //orderPizza();
-        document.location.href = "#success";
+        orderPizza("bbqchicken");
+    });
+    $(document).on('click', '.checkOrder_bt', function(event){
+        checkOrder();
     });
 
     $(document).on('click', '#m_passwordbt', function(event){
@@ -68,7 +68,6 @@ window.onload = function () {
 
     $(document).on('click', '#createButton', function(event){
         createUser();
-
     });   
 
     $(document).on("pagebeforeshow", "#order",function(event){
@@ -105,6 +104,12 @@ window.onload = function () {
         }
     });
     $(document).on("pagebeforeshow", "#success",function(event){
+        if(user.userName===""){//if not login, go login page
+            alert("Please login!");
+            document.location.href = "#log";
+        }
+    });
+    $(document).on("pagebeforeshow", "#checkorder",function(event){
         if(user.userName===""){//if not login, go login page
             alert("Please login!");
             document.location.href = "#log";
@@ -219,9 +224,9 @@ function createUser()
             $('#createPassword').val('');
             $('#reinputPassword').val('');
             $('#createAddress').val('');
-            user.userAddress=response.userInfo.address;
-            user.userName=response.userInfo.username;
-            user.userID=response.userInfo._id;
+            user.userAddress=response.newUserInfo.address;
+            user.userName=response.newUserInfo.username;
+            user.userID=response.newUserInfo._id;
             console.log(user.userID);
             document.location.href = "#order";
         }
@@ -337,8 +342,76 @@ function deletAccount()
     .catch(error => console.error('Error:', error));
 }
 
-function orderPizza()
+function orderPizza(pizzaType)
 {
     //this will allow their order to be added to their account
-    //different prices based on the id of the pizza the user chooses
+    let today=new Date();
+    let dateToday=today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    let timeToday=today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    let dateTimeToday=dateToday+" "+timeToday;
+    console.log(dateTimeToday);
+    let orderInformation={
+        customerID:user.userID,
+        pizzaTopping:pizzaType,
+        orderTime:dateTimeToday
+    }
+    fetch('/users/orderpizza', {
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify(orderInformation), // data can be `string` or {object}!
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        })
+    })
+    .then(res => res.json())
+    .then((res) => {
+        console.log(res);
+        if(res.orderSuccess){
+            alert("You ordered successfully");
+            document.location.href = "#success";
+        }
+        else{
+            alert("Order failed, please try again");
+            document.location.href = "#order";
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+function checkOrder(){
+    console.log(user.userID);
+    fetch('/users/orderhistory',{
+        method: 'POST', // or 'PUT'
+        body: JSON.stringify({userID:user.userID}), // data can be `string` or {object}!
+        headers: new Headers({
+          'Content-Type': 'application/json'
+        })
+    })
+    .then(res => res.json())
+    .then((res) => {
+        console.log(res);
+        if(res.findSuccess){
+            let orderHistory= res.orderHistory;
+            let insertContent=""
+            $("#checkOrderDetail").empty();
+            if(orderHistory.length!=0){
+                insertContent="<h3>Your Order History:</h3>"
+                for(i=0;i<orderHistory.length;i++){
+                    "<>"
+                    insertContent=insertContent+
+                    "<b>OrderID: "+orderHistory[i]._id+"<br/>"+
+                    "DateTime: "+orderHistory[i].orderTime+"<br/>"+
+                    "ToppingType: "+orderHistory[i].pizzaTopping+"<br/>"+
+                    "Price: "+orderHistory[i].Price+".</b><br/><br/>"
+                }
+            }
+            else{
+                insertContent="<h3>There is no order history be found!</h3>"
+            }
+            $("#checkOrderDetail").append(insertContent);
+            document.location.href = "#checkorder";
+        }
+        else{
+            alert("find order history failed, please try again");
+        }
+    })
+    .catch(error => console.error('Error:', error));
 }
