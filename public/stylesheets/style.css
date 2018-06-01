@@ -6,9 +6,6 @@ body {
 a {
   color: #00B7FF;
 }
-#log-in{
-  padding: 5px;
-}
-.signOut_bt{
-  background-color: #000000;
+.bt{
+  padding: 5px !important;
 }

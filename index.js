@@ -4,11 +4,31 @@ let user={//user state, can change to save in session
     userAddress:""
 };
 window.onload = function () {
-
+    if(user.userName===""){//if not login, go login page
+        document.location.href = "#log";
+    }
+    $(document).on('click', '#backSignInIcon', function(event){
+        $('#createUername').val('');
+        $('#createPassword').val('');
+        $('#reinputPassword').val('');
+        $('#createAddress').val('');
+        document.location.href = "#log";
+    });
     $(document).on('click', '#log-in', function(event){
         loginUser();
     });
-
+    $(document).on('click', '.signOutIcon', function(event){
+        signOut();
+    });
+    $(document).on('click', '.backManageIcon', function(event){
+        $("#oldpassword").val("");
+        $("#newpassword").val("");
+        $("#matchpassword").val("");
+        $("#passwordAddress").val("");
+        $("#newaddress").val("");
+        $("#passworddelet").val("");
+        document.location.href = "#manageaccount";
+    });
     $(document).on('click', '#cheese', function(event){
         //orderPizza();
         document.location.href = "#success";
@@ -84,8 +104,21 @@ window.onload = function () {
             document.location.href = "#log";
         }
     });
+    $(document).on("pagebeforeshow", "#success",function(event){
+        if(user.userName===""){//if not login, go login page
+            alert("Please login!");
+            document.location.href = "#log";
+        }
+    });
 }
-
+function signOut(){
+    user={//reset user state, can change to clear session
+        userName:"",
+        userID:"",
+        userAddress:""
+    };
+    document.location.href = "#log";
+}
 function loginUser()
 {
     //this delets the user from the mongo database
