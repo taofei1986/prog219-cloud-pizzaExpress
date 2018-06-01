@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
 	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<link rel="stylesheet" href="public/stylesheets/style.css" />
 	<script src="index.js"></script>
 	<meta charset="utf-8">
 	<title>Bellevue College Pizzaria</title>
@@ -18,15 +19,15 @@
 	 <!--Log-in page-->
 	 <div data-role="page" id="log">
 		<div data-role="header">
-			<h1>Welcome to the Bellevue College Pizzaria!</h1>
+			<h1>BC Pizza Express</h1>
 		</div>
 
 		<div data-role="content"> 
-				<a href="#create" data-role="button" data-transition='flip'>Create an account</a>
-				<h3>Or just log on below if you already have an account</h3>
+				<h3>Login to Your Account</h3>
 				<input type="text" id="uername" value="" placeholder="Enter Username"/>
 				<input type="password" id="password" value="" placeholder="Enter Password"/>
-				<input type="submit" value="Log-In" id="log-in"/>
+				<button id="log-in"/>Sign In</button>
+				<a href="#create" id="createAccountLink">Create account</a>
 		</div>  
 
 		<div data-role="footer">
@@ -37,7 +38,7 @@
 <!--Create account page-->
 <div data-role="page" id="create">
 		<div data-role="header">
-			<h1>Bellevue College Pizzaria</h1>
+			<h1>BC Pizza Express</h1>
 		</div>
 
 		<div data-role="content"> 
@@ -46,7 +47,7 @@
 			<input type="password" id="reinputPassword" placeholder="Enter Create Password Again"/>
 			<input type="text" id="createAddress" placeholder="Enter your address"/>
 			<input type="submit" value="Create Account" id="createButton"/>
-			<a href="#log" data-role="button" data-transition='pop'>Return to Log-in</a>
+			<a href="#log" data-role="button" data-transition='pop'>Return to Sign In</a>
 		</div>
 
 		<div data-role="footer">
@@ -55,8 +56,10 @@
 </div>
 <!--order pizza page and button to change/delete account-->
 <div data-role="page" id="order">
-		<div data-role="header">
-				<h1>Bellevue College Pizzaria</h1>
+		<div data-role="header" data-position="fixed">
+			<a href="#manageaccount" data-icon="gear">Manage Accout</a>
+			<h1>BC Pizza Express</h1>
+			<a href="#log" data-icon="power" data-theme="a">Sign Out</a>
 		</div>
 
 		<div data-role="content"> 
@@ -65,7 +68,6 @@
 			<input type="submit" value="Hawaiian Pizza" id="hawaiian"/>
 			<input type="submit" value="BBQ Chicken Pizza" id="bbqchicken"/>
 			<!--make it so that once a pizza is selected, the user goes to the pizza congrats page-->
-			<a href="#manageaccount" data-role="button" data-transition='pop'>Manage Account</a>
 		</div>
 
 		<div data-role="footer">
@@ -75,14 +77,14 @@
 <!--page to manage account-->
 <div data-role="page" id="manageaccount">
 	<div data-role="header">
-			<h1>Bellevue College Pizzaria</h1>
+		<h1>BC Pizza Express</h1>
 	</div>
 
 	<div data-role="content"> 
 		<!--must show information that is in this persons account in the text field-->
-			<input type="submit" value="Change Password" id="m_passwordbt"/>
-			<input type="submit" value="Change address" id="m_addressbt"/>
-			<input type="submit" value="Delet Account" id="m_deletbt"/>
+			<button id="m_passwordbt">Change Password</button>
+			<button id="m_addressbt">Change address</button>
+			<button id="m_deletbt">Delet Account</button>
 	</div>
 
 	<div data-role="footer">
@@ -92,7 +94,7 @@
 <!--page to change password-->
 <div data-role="page" id="passwordchange">
 		<div data-role="header">
-				<h1>Bellevue College Pizzaria</h1>
+			<h1>BC Pizza Express</h1>
 		</div>
 
 		<div data-role="content"> 
@@ -101,7 +103,7 @@
 				<input type="password" id="oldpassword" value="" placeholder="Enter your old password"/>
 				<input type="password" id="newpassword" value="" placeholder="Enter your new password"/>
 				<input type="password" id="matchpassword" value="" placeholder="Enter your new password again"/>
-				<input type="submit" value="Change Password" id="changepasswordbt"/>
+				<button id="changepasswordbt">Change Password</button>
 		</div>
 
 		<div data-role="footer">
@@ -111,7 +113,7 @@
 <!--page to change address-->
 <div data-role="page" id="addresschange">
 	<div data-role="header">
-			<h1>Bellevue College Pizzaria</h1>
+		<h1>BC Pizza Express</h1>
 	</div>
 
 	<div data-role="content"> 
@@ -119,7 +121,7 @@
 		<!--must show information that is in this persons account in the text field-->
 			<input type="password" id="passwordAddress" value="" placeholder="Enter your password"/>
 			<input type="text" id="newaddress" value="" placeholder="Enter your new address"/>
-			<input type="submit" value="Change Address" id="changeAdressbt"/>
+			<button id="changeAdressbt">Change Address</button>
 	</div>
 
 	<div data-role="footer">
@@ -129,14 +131,14 @@
 <!--page to delet account-->
 <div data-role="page" id="deletaccount">
 	<div data-role="header">
-			<h1>Bellevue College Pizzaria</h1>
+		<h1>BC Pizza Express</h1>
 	</div>
 
 	<div data-role="content"> 
 		<h3>Delet your account</h3>
 		<!--must show information that is in this persons account in the text field-->
-			<input type="text" id="passworddelet" value="" placeholder="Enter your password"/>
-			<input type="submit" value="Delet Account" id="deletAccountbt"/>
+			<input type="password" id="passworddelet" value="" placeholder="Enter your password"/>
+			<button id="deletAccountbt">Delet Account</button>
 	</div>
 
 	<div data-role="footer">
@@ -146,7 +148,7 @@
 <!--order was sucessful-->
 <div data-role="page" id="success">
 		<div data-role="header">
-				<h1>Bellevue College Pizzaria</h1>
+			<h1>BC Pizza Express</h1>
 		</div>
 
 		<div data-role="content"> 
